@@ -9,13 +9,14 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
+
 import json
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-with open(BASE_DIR / '.config_secret' / 'secret.json') as f:
+with open(BASE_DIR / ".config_secret" / "secret.json") as f:
     config_secret_str = f.read()
 
 SECRET = json.loads(config_secret_str)
@@ -23,7 +24,7 @@ SECRET = json.loads(config_secret_str)
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = SECRET['DJANGO_SECRET_KEY']
+SECRET_KEY = SECRET["DJANGO_SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -42,10 +43,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # own
     # 3rd party
-    'django_extensions',
-    'rest_framework',
-    'drf_yasg',
-    'psycopg2',
+    "django_extensions",
+    "rest_framework",
+    "drf_yasg",
+    "psycopg2",
 ]
 
 MIDDLEWARE = [
@@ -84,11 +85,11 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME" : SECRET["DB"]["NAME"],
-        "USER" : SECRET["DB"]["USER"],
-        "PASSWORD" : SECRET["DB"]["PASSWORD"],
-        "HOST" : SECRET["DB"]["HOST"],
-        "PORT" : SECRET["DB"]["PORT"],
+        "NAME": SECRET["DB"]["NAME"],
+        "USER": SECRET["DB"]["USER"],
+        "PASSWORD": SECRET["DB"]["PASSWORD"],
+        "HOST": SECRET["DB"]["HOST"],
+        "PORT": SECRET["DB"]["PORT"],
     }
 }
 
