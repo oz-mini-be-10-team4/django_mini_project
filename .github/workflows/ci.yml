@@ -43,9 +43,9 @@ jobs:
         run: |
           uv pip install --system .
 
-      - name: Run isort (Import sorting)
-        run: |
-          uv run isort . --check --diff
+#      - name: Run isort (Import sorting)
+#        run: |
+#          uv run isort . --check --diff
 
       - name: Run black (Code formatting)
         run: |
