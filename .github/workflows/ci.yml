@@ -43,12 +43,23 @@ jobs:
         run: |
           uv pip install --system .
 
+      - name: Create secret directory
+        run: mkdir -p .config_secret
+
       - name: create-json
         id: create-json
         uses: jsdaniell/create-json@1.1.2
         with:
           name: "secret.json"
           json: ${{ secrets.SECERT_JSON }}
+          dir: '.config_secret'
+
+#      - name: create-json
+#        id: create-json
+#        uses: jsdaniell/create-json@1.1.2
+#        with:
+#          name: "secret.json"
+#          json: ${{ secrets.SECERT_JSON }}
 
 #      - name: create secrets file
 #        run: |
