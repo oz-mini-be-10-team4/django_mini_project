@@ -14,7 +14,7 @@ class User(AbstractBaseUser, PermissionsMixin, TimestampModel):
 
     last_login = models.DateTimeField(null=True, blank=True, auto_now=True)
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = "email"
 
     def __str__(self):
         return self.email

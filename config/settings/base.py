@@ -42,9 +42,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # own
-    'accounts',
-    'transaction',
-    'user',
+    "accounts",
+    "transaction",
+    "user",
     # 3rd party
     "django_extensions",
     "rest_framework",
@@ -138,5 +138,4 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-AUTH_USER_MODEL = 'user.User'
-
+AUTH_USER_MODEL = "user.User"
