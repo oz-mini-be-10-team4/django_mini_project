@@ -1,4 +1,4 @@
 from .base import *
 
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['127.0.0.1']

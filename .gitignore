@@ -2,7 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,pycharm,django,macos
 
 # Secrets
-.config_secret/*
+config/.config_secret/*
 
 ### Django ###
 *.log
