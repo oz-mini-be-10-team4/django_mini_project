@@ -43,10 +43,17 @@ jobs:
         run: |
           uv pip install --system .
 
-      - name: create secrets file
-        run: |
-          touch secrets.json		# 파일 생성
-          echo "${{ secrets.SECRET_JSON }}" >> secrets.json
+      - name: create-json
+        id: create-json
+        uses: jsdaniell/create-json@1.1.2
+        with:
+          name: "secrets.json"
+          json: ${{ secrets.SECERT_JSON }}
+
+#      - name: create secrets file
+#        run: |
+#          touch secrets.json		# 파일 생성
+#          echo "${{ secrets.SECRET_JSON }}" >> secrets.json
 
 #      - name: Run isort (Import sorting)
 #        run: |
