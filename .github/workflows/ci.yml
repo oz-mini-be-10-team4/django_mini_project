@@ -41,7 +41,7 @@ jobs:
 
       - name: Install Packages & Libraries
         run: |
-          uv pip install --system .
+          uv pip install --system -r requirements.txt
 
       - name: Create secret directory
         run: mkdir -p .config_secret
