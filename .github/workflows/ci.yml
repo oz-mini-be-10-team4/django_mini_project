@@ -54,6 +54,8 @@ jobs:
           json: ${{ secrets.SECERT_JSON }}
           dir: '.config_secret'
 
+      - name: Check secret.json content
+        run: cat .config_secret/secret.json
 #      - name: create-json
 #        id: create-json
 #        uses: jsdaniell/create-json@1.1.2
