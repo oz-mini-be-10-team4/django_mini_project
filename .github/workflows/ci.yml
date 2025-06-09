@@ -43,6 +43,11 @@ jobs:
         run: |
           uv pip install --system .
 
+      - name: create secrets file
+        run: |
+          touch secrets.json		# 파일 생성
+          echo "${{ secrets.SECRET_JSON }}" >> secrets.json
+
 #      - name: Run isort (Import sorting)
 #        run: |
 #          uv run isort . --check --diff
