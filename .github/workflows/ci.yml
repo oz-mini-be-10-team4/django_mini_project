@@ -51,7 +51,7 @@ jobs:
         uses: jsdaniell/create-json@1.1.2
         with:
           name: "secret.json"
-          json: ${{ secrets.SECERT_JSON }}
+          json: ${{ secrets.SECRET_JSON }}
           dir: '.config_secret'
 
       - name: Check secret.json content
