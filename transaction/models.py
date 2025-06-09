@@ -5,7 +5,7 @@ from utils.constants import TRANSACTION_TYPE, TRANSACTION_METHOD
 from utils.models import TimestampModel
 
 
-class TransactionHistory(TimestampModel):
+class Transaction(TimestampModel):
     account_id = models.ForeignKey(
         Account, on_delete=models.CASCADE, related_name="transactions"
     )
