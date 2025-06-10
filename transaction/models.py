@@ -6,7 +6,7 @@ from utils.models import TimestampModel
 
 
 class Transaction(TimestampModel):
-    account_id = models.ForeignKey(
+    account = models.ForeignKey(
         Account, on_delete=models.CASCADE, related_name="transactions"
     )
     amount = models.DecimalField(max_digits=10, decimal_places=2)

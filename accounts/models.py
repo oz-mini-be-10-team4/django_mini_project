@@ -8,7 +8,7 @@ User = get_user_model()
 
 
 class Account(TimestampModel):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name="accounts")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="accounts")
     account_number = models.CharField(max_length=30, unique=True)
     bank_code = models.CharField(max_length=3, choices=BANK_CODES)
     account_type = models.CharField(max_length=20, choices=ACCOUNT_TYPE)
