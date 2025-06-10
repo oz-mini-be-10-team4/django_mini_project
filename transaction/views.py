@@ -1,5 +1,6 @@
-from rest_framework import generics, permissions, filters
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters, generics, permissions
+
 from .models import Transaction
 from .serializers import TransactionSerializer
 
@@ -23,24 +24,28 @@ class TransactionListView(generics.ListAPIView):
     ordering_fields = ["transaction_at", "amount"]
 
     def get_queryset(self):
+        if getattr(self, "swagger_fake_view", False):  # 스웨거 전용
+            return Transaction.objects.none()
         return Transaction.objects.filter(account_id__user_id=self.request.user)
 
 
 # 거래 수정
 class TransactionUpdateView(generics.UpdateAPIView):
-    queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
+        if getattr(self, "swagger_fake_view", False):  # 스웨거 전용
+            return Transaction.objects.none()
         return Transaction.objects.filter(account_id__user_id=self.request.user)
 
 
 # 거래 삭제
 class TransactionDeleteView(generics.DestroyAPIView):
-    queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
+        if getattr(self, "swagger_fake_view", False):  # 스웨거 전용
+            return Transaction.objects.none()
         return Transaction.objects.filter(account_id__user_id=self.request.user)
