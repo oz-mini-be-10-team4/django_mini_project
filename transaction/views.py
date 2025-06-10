@@ -12,7 +12,7 @@ class TransactionCreateView(generics.CreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
-        serializer.save(account_id__user_id=self.request.user)
+        serializer.save()
 
 
 # 거래 목록 조회 (필터링 포함)

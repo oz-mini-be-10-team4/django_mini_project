@@ -14,7 +14,7 @@ class Transaction(TimestampModel):
     description = models.CharField(max_length=255)
     transaction_type = models.CharField(max_length=10, choices=TRANSACTION_TYPE)
     method = models.CharField(max_length=20, choices=TRANSACTION_METHOD)
-    transaction_at = models.DateTimeField()
+    transaction_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.account.account_number} - {self.amount}원"
