@@ -4,14 +4,13 @@ from django.db import models
 
 from utils.models import TimestampModel
 
-class UserManager(BaseUserManager):
-    def create_user(self,email, password):
-        if not email:
-            raise ValueError('올바른 이메일을 입력하세요.')
 
-        user = self.model(
-            email=self.normalize_email(email)
-        )
+class UserManager(BaseUserManager):
+    def create_user(self, email, password):
+        if not email:
+            raise ValueError("올바른 이메일을 입력하세요.")
+
+        user = self.model(email=self.normalize_email(email))
         user.set_password(password)
         user.is_active = False
         user.save()
