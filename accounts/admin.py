@@ -4,5 +4,4 @@ from accounts.models import Account
 
 
 @admin.register(Account)
-class AccountAdmin(admin.ModelAdmin):
-    ...
+class AccountAdmin(admin.ModelAdmin): ...

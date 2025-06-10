@@ -3,6 +3,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from .models import Transaction
 from .serializers import TransactionSerializer
 
+
 # 거래 등록
 class TransactionCreateView(generics.CreateAPIView):
     queryset = Transaction.objects.all()
@@ -11,6 +12,7 @@ class TransactionCreateView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(account_id__user_id=self.request.user)
+
 
 # 거래 목록 조회 (필터링 포함)
 class TransactionListView(generics.ListAPIView):
@@ -23,6 +25,7 @@ class TransactionListView(generics.ListAPIView):
     def get_queryset(self):
         return Transaction.objects.filter(account_id__user_id=self.request.user)
 
+
 # 거래 수정
 class TransactionUpdateView(generics.UpdateAPIView):
     queryset = Transaction.objects.all()
@@ -31,6 +34,7 @@ class TransactionUpdateView(generics.UpdateAPIView):
 
     def get_queryset(self):
         return Transaction.objects.filter(account_id__user_id=self.request.user)
+
 
 # 거래 삭제
 class TransactionDeleteView(generics.DestroyAPIView):

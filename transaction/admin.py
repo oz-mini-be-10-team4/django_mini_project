@@ -4,5 +4,4 @@ from transaction.models import Transaction
 
 
 @admin.register(Transaction)
-class TransactionAdmin(admin.ModelAdmin):
-    ...
+class TransactionAdmin(admin.ModelAdmin): ...

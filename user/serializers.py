@@ -4,6 +4,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 User = get_user_model()
 
+
 # 회원가입용 시리얼라이저
 class SignupSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -14,8 +15,7 @@ class SignupSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user = User.objects.create_user(
-            email=validated_data["email"],
-            password=validated_data["password"]
+            email=validated_data["email"], password=validated_data["password"]
         )
         user.name = validated_data["name"]
         user.save()
