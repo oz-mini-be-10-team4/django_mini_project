@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import AccountCreateView, AccountListView, AccountDeleteView
+
+from .views import AccountCreateView, AccountDeleteView, AccountListView
 
 app_name = "accounts"
 

@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import SignupView, LoginView, MeView, TokenRefreshViewOverride
+
+from .views import LoginView, MeView, SignupView, TokenRefreshViewOverride
 
 app_name = "user"
 

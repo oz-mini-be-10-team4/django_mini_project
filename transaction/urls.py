@@ -1,10 +1,7 @@
 from django.urls import path
-from .views import (
-    TransactionCreateView,
-    TransactionListView,
-    TransactionUpdateView,
-    TransactionDeleteView,
-)
+
+from .views import (TransactionCreateView, TransactionDeleteView,
+                    TransactionListView, TransactionUpdateView)
 
 app_name = "transaction"
 

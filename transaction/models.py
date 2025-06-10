@@ -1,7 +1,7 @@
 from django.db import models
 
 from accounts.models import Account
-from utils.constants import TRANSACTION_TYPE, TRANSACTION_METHOD
+from utils.constants import TRANSACTION_METHOD, TRANSACTION_TYPE
 from utils.models import TimestampModel
 
 

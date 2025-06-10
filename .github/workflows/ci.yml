@@ -54,13 +54,13 @@ jobs:
           json: ${{ secrets.SECRET_JSON }}
           dir: '.config_secret'
 
-#      - name: Run isort (Import sorting)
-#        run: |
-#          uv run isort . --check --diff
+      - name: Run isort (Import sorting)
+        run: |
+          uv run isort . --check --diff
 
-#      - name: Run black (Code formatting)
-#        run: |
-#          uv run black . --check
+      - name: Run black (Code formatting)
+        run: |
+          uv run black . --check
 
       - name: Wait for PostgreSQL
         run: |
