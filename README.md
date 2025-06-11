@@ -39,32 +39,34 @@ RESTful API 기반으로 작동하며, Swagger를 통한 자동화된 API 문서
 ---
 ## 디렉토리 구조
 
+```plaintext
 django_mini_project/
-├── .config_secret/ # 환경변수 및 시크릿 관리
-├── .github/ # GitHub Actions 등 워크플로
-├── accounts/ # 계좌 관련 모델, API
-│ ├── models.py
-│ ├── serializers.py
-│ ├── views.py
-├── config/ # Django 설정
-├── requirements/ # 패키지 요구사항
-├── transaction/ # 거래 내역 처리용 앱
-│ ├── models.py
-│ ├── serializers.py
-│ ├── views.py
-├── user/ # 사용자 인증/관리
-│ ├── models.py
-│ ├── serializers.py
-│ ├── views.py
-├── utils/ # 상수, 공통 유틸
+├── .config_secret/         # 환경변수 및 시크릿 관리
+├── .github/                # GitHub Actions 등 워크플로
+├── accounts/               # 계좌 관련 모델, API
+│   ├── models.py
+│   ├── serializers.py
+│   ├── views.py
+├── config/                 # Django 설정
+├── requirements/           # 패키지 요구사항
+├── transaction/            # 거래 내역 처리용 앱
+│   ├── models.py
+│   ├── serializers.py
+│   ├── views.py
+├── user/                   # 사용자 인증/관리
+│   ├── models.py
+│   ├── serializers.py
+│   ├── views.py
+├── utils/                  # 상수, 공통 유틸
 ├── .gitignore
 ├── main.py
-├── manage.py # Django 진입점
-├── pyproject.toml # 빌드 설정
+├── manage.py               # Django 진입점
+├── pyproject.toml          # 빌드 설정
 ├── README.md
 ├── requirements.txt
-├── test.sh # 코드 포맷팅 검사 스크립트
-└──  uv.lock # 패키지 버전 락 파일
+├── test.sh                 # 코드 포맷팅 검사 스크립트
+└── uv.lock                 # 패키지 버전 락 파일
+```
 ---
 
 ## API 문서
