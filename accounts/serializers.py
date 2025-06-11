@@ -14,3 +14,7 @@ class AccountSerializer(serializers.ModelSerializer):
             "balance",
         )
         read_only_fields = ("id",)
+
+    def create(self, validated_data):
+        user = self.context["request"].user
+        return Account.objects.create(user=user, **validated_data)

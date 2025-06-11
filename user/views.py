@@ -1,11 +1,15 @@
 from django.contrib.auth import get_user_model
-from rest_framework import generics, permissions
+from drf_yasg.utils import swagger_auto_schema
+from rest_framework import generics, permissions, status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from .serializers import (
     CustomTokenObtainPairSerializer,
+    LogoutSerializer,
     SignupSerializer,
     UserSerializer,
 )
@@ -38,3 +42,18 @@ class MeView(APIView):
     def get(self, request):
         serializer = UserSerializer(request.user)
         return Response(serializer.data)
+
+
+# 로그아웃 (토큰 블랙리스트 등록)
+class LogoutView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    @swagger_auto_schema(request_body=LogoutSerializer)
+    def post(self, request):
+        try:
+            refresh_token = request.data["refresh"]
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+            return Response(status=status.HTTP_205_RESET_CONTENT)
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST)

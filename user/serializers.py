@@ -15,10 +15,10 @@ class SignupSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user = User.objects.create_user(
-            email=validated_data["email"], password=validated_data["password"]
+            email=validated_data["email"],
+            password=validated_data["password"],
+            name=validated_data["name"],
         )
-        user.name = validated_data["name"]
-        user.save()
         return user
 
 
@@ -30,6 +30,11 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         # 토큰 payload에 name 추가
         token["name"] = user.name
         return token
+
+
+# 로그아웃용 시리얼라이저
+class LogoutSerializer(serializers.Serializer):
+    refresh = serializers.CharField()
 
 
 # 사용자 정보 조회용

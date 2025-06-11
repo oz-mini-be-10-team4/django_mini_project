@@ -11,7 +11,7 @@ class AccountCreateView(generics.CreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
-        serializer.save(user_id=self.request.user)
+        serializer.save()
 
 
 # 계좌 목록 조회
