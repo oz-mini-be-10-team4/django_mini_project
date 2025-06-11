@@ -139,5 +139,5 @@ CELERY_TASK_SERIALIZER = "json"
 CELERY_TIMEZONE = "Asia/Seoul"
 CELERY_ENABLE_UTC = False
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"

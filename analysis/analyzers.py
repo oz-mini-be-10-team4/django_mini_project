@@ -1,16 +1,18 @@
 import matplotlib
+
 matplotlib.use("Agg")  # GUI 백엔드 대신 이미지 저장용 백엔드 사용!
+
+from datetime import datetime, time
+from io import BytesIO
 
 import matplotlib.pyplot as plt
 import pandas as pd
-from io import BytesIO
 from django.core.files.base import ContentFile
 from django.utils import timezone
-from datetime import datetime, time
 
 from transaction.models import Transaction
-from .models import Analysis
 
+from .models import Analysis
 
 
 class Analyzer:
@@ -22,6 +24,7 @@ class Analyzer:
 
     def run(self):
         from django.utils.timezone import make_aware
+
         start = make_aware(datetime.combine(self.start_date, time.min))
         end = make_aware(datetime.combine(self.end_date, time.max))
 

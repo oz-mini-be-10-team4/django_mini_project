@@ -1,6 +1,6 @@
-
 from django.urls import path
-from .views import RunAnalysisView, AnalysisListView
+
+from .views import AnalysisListView, RunAnalysisView
 
 app_name = "analysis"
 

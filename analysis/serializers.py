@@ -1,5 +1,7 @@
 from rest_framework import serializers
+
 from .models import Analysis
+
 
 class AnalysisSerializer(serializers.ModelSerializer):
     result_image = serializers.ImageField(use_url=True)

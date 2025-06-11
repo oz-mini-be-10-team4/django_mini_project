@@ -1,11 +1,12 @@
-from rest_framework import generics, permissions, status
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from django.utils import timezone
 from datetime import timedelta
 
-from .models import Analysis
+from django.utils import timezone
+from rest_framework import generics, permissions, status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
 from .analyzers import Analyzer
+from .models import Analysis
 from .serializers import AnalysisSerializer
 
 
@@ -19,6 +20,7 @@ class AnalysisListView(generics.ListAPIView):
         if analysis_type:
             queryset = queryset.filter(type=analysis_type.upper())
         return queryset
+
 
 class RunAnalysisView(APIView):
     permission_classes = [permissions.IsAuthenticated]
@@ -37,5 +39,10 @@ class RunAnalysisView(APIView):
         result = analyzer.run()
 
         if result:
-            return Response(AnalysisSerializer(result).data, status=status.HTTP_201_CREATED)
-        return Response({"detail": "분석에 사용할 거래 데이터가 없습니다."}, status=status.HTTP_204_NO_CONTENT)
+            return Response(
+                AnalysisSerializer(result).data, status=status.HTTP_201_CREATED
+            )
+        return Response(
+            {"detail": "분석에 사용할 거래 데이터가 없습니다."},
+            status=status.HTTP_204_NO_CONTENT,
+        )
