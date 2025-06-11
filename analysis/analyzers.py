@@ -1,0 +1,67 @@
+import os
+from io import BytesIO
+
+import matplotlib.pyplot as plt
+import pandas as pd
+from django.core.files.base import ContentFile
+from django.utils import timezone
+
+from transaction.models import Transaction
+
+from .models import Analysis
+
+
+class Analyzer:
+    def __init__(self, user, type, start_date, end_date):
+        self.user = user
+        self.type = type  # "WEEKLY" or "MONTHLY"
+        self.start_date = start_date
+        self.end_date = end_date
+
+    def run(self):
+        # 1. 거래 데이터 필터링
+        transactions = Transaction.objects.filter(
+            account__user=self.user, created_at__range=(self.start_date, self.end_date)
+        )
+
+        if not transactions.exists():
+            return None
+
+        # 2. Pandas DataFrame 생성
+        data = pd.DataFrame(
+            list(transactions.values("created_at", "amount", "description"))
+        )
+        data["created_at"] = pd.to_datetime(data["created_at"])
+        data["date"] = data["created_at"].dt.date
+        summary = data.groupby("date")["amount"].sum()
+
+        # 3. 시각화
+        plt.figure(figsize=(10, 5))
+        summary.plot(kind="bar")
+        plt.title(f"{self.user.email}의 {self.type} 소비 분석")
+        plt.xlabel("날짜")
+        plt.ylabel("총 소비 금액")
+        plt.tight_layout()
+
+        # 4. 이미지 저장 (in-memory)
+        buffer = BytesIO()
+        plt.savefig(buffer, format="png")
+        buffer.seek(0)
+        image_file = ContentFile(
+            buffer.read(), name=f"{self.user.id}_{self.type.lower()}_analysis.png"
+        )
+        buffer.close()
+        plt.close()
+
+        # 5. Analysis 모델 저장
+        analysis = Analysis.objects.create(
+            user=self.user,
+            about="총 지출",
+            type=self.type,
+            period_start=self.start_date,
+            period_end=self.end_date,
+            description="해당 기간 동안의 총 소비 내역",
+            result_image=image_file,
+        )
+
+        return analysis
