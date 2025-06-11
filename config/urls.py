@@ -23,7 +23,7 @@ urlpatterns = [
     # 각 앱의 URL 연결
     path("api/user/", include("user.urls", namespace="user")),
     path("api/accounts/", include("accounts.urls", namespace="accounts")),
-    path("api/transactions/", include("transaction.urls", namespace="transaction")),
+    path("api/transaction/", include("transaction.urls", namespace="transaction")),
     # Swagger 문서 경로
     path(
         "swagger/",

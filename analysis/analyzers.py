@@ -1,3 +1,5 @@
+import os
+
 import matplotlib
 
 matplotlib.use("Agg")  # GUI 백엔드 대신 이미지 저장용 백엔드 사용!
@@ -6,6 +8,7 @@ from datetime import datetime, time
 from io import BytesIO
 
 import matplotlib.pyplot as plt
+import matplotlib.font_manager as fm
 import pandas as pd
 from django.core.files.base import ContentFile
 from django.utils import timezone
@@ -13,6 +16,17 @@ from django.utils import timezone
 from transaction.models import Transaction
 
 from .models import Analysis
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+font_path = os.path.join(BASE_DIR, "utils", "fonts", "NanumGothic.ttf")
+font_prop = None
+
+if os.path.exists(font_path):
+    font_prop = fm.FontProperties(fname=font_path)
+else:
+    print("NanumGothic.ttf not found. 한글이 깨질 수 있습니다.")
+
+plt.rcParams["axes.unicode_minus"] = False
 
 
 class Analyzer:
@@ -56,9 +70,10 @@ class Analyzer:
         # 3. 시각화
         plt.figure(figsize=(10, 5))
         summary.plot(kind="bar")
-        plt.title(f"{self.user.email}의 {self.type} 소비 분석")
-        plt.xlabel("날짜")
-        plt.ylabel("총 소비 금액")
+        plt.title(f"{self.user.email}의 {self.type} 소비 분석", fontproperties=font_prop)
+        plt.xlabel("날짜", fontproperties=font_prop)
+        plt.ylabel("총 소비 금액", fontproperties=font_prop)
+        plt.xticks(rotation=45)
         plt.tight_layout()
 
         # 4. 이미지 저장 (in-memory)

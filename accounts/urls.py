@@ -5,7 +5,7 @@ from .views import AccountCreateView, AccountDeleteView, AccountListView
 app_name = "accounts"
 
 urlpatterns = [
-    path("", AccountListView.as_view(), name="list"),  # GET /api/accounts/
+    path("", AccountListView.as_view(), name="list"),
     path(
         "create/", AccountCreateView.as_view(), name="create"
     ),  # POST /api/accounts/create/
