@@ -1,4 +1,8 @@
-import os
+import matplotlib
+
+matplotlib.use("Agg")  # GUI 백엔드 대신 이미지 저장용 백엔드 사용!
+
+from datetime import datetime, time
 from io import BytesIO
 
 import matplotlib.pyplot as plt
@@ -19,9 +23,14 @@ class Analyzer:
         self.end_date = end_date
 
     def run(self):
+        from django.utils.timezone import make_aware
+
+        start = make_aware(datetime.combine(self.start_date, time.min))
+        end = make_aware(datetime.combine(self.end_date, time.max))
+
         # 1. 거래 데이터 필터링
         transactions = Transaction.objects.filter(
-            account__user=self.user, created_at__range=(self.start_date, self.end_date)
+            account__user=self.user, transaction_at__range=(start, end)
         )
 
         if not transactions.exists():
@@ -29,10 +38,19 @@ class Analyzer:
 
         # 2. Pandas DataFrame 생성
         data = pd.DataFrame(
-            list(transactions.values("created_at", "amount", "description"))
+            list(transactions.values("transaction_at", "amount", "description"))
         )
-        data["created_at"] = pd.to_datetime(data["created_at"])
-        data["date"] = data["created_at"].dt.date
+
+        data["transaction_at"] = pd.to_datetime(data["transaction_at"])
+        data["date"] = data["transaction_at"].dt.date
+
+        # amount 컬럼을 float으로 변환
+        data["amount"] = pd.to_numeric(data["amount"], errors="coerce")
+
+        # NaN 제거 (혹시라도 변환 실패한 값이 있을 경우)
+        data = data.dropna(subset=["amount"])
+
+        # 일자별 합계 계산
         summary = data.groupby("date")["amount"].sum()
 
         # 3. 시각화

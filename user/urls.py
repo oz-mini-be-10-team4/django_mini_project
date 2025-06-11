@@ -10,5 +10,4 @@ urlpatterns = [
     path("logout", LogoutView.as_view(), name="logout"),
     path("token/refresh/", TokenRefreshViewOverride.as_view(), name="token_refresh"),
     path("me/", MeView.as_view(), name="me"),
-    path("logout/", LogoutView.as_view(), name="logout"),
 ]
