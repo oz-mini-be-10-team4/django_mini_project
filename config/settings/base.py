@@ -20,10 +20,13 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_celery_beat",
+    "django_celery_results",
     # own apps
     "accounts",
     "transaction",
     "user",
+    "analysis",
     # 3rd party
     "django_extensions",
     "rest_framework",
@@ -125,3 +128,13 @@ SWAGGER_SETTINGS = {
     },
     "USE_SESSION_AUTH": False,
 }
+
+
+CELERY_BROKER_URL = "redis://localhost:6379/0"  # Redis 사용 시
+CELERY_RESULT_BACKEND = "django-db"
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
+
+# timezone 설정
+CELERY_TIMEZONE = "Asia/Seoul"
+CELERY_ENABLE_UTC = False
