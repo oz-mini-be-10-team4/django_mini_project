@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
 from .serializers import (
     CustomTokenObtainPairSerializer,
     LogoutSerializer,
@@ -32,7 +33,7 @@ class LoginView(TokenObtainPairView):
 # 토큰 재발급
 class TokenRefreshViewOverride(TokenRefreshView):
     permission_classes = [permissions.AllowAny]
-    
+
 
 # 내 정보 조회
 class MeView(APIView):
@@ -42,7 +43,7 @@ class MeView(APIView):
         serializer = UserSerializer(request.user)
         return Response(serializer.data)
 
-      
+
 # 로그아웃 (토큰 블랙리스트 등록)
 class LogoutView(APIView):
     permission_classes = [IsAuthenticated]
@@ -56,4 +57,3 @@ class LogoutView(APIView):
             return Response(status=status.HTTP_205_RESET_CONTENT)
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)
-
