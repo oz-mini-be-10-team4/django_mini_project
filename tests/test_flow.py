@@ -1,6 +1,8 @@
 import random
-from rest_framework.test import APITestCase, APIClient
 from datetime import datetime, timedelta
+
+from rest_framework.test import APIClient, APITestCase
+
 
 class AccountingFlowTest(APITestCase):
     def setUp(self):
@@ -8,19 +10,19 @@ class AccountingFlowTest(APITestCase):
         self.user_data = {
             "email": "test@example.com",
             "password": "TestPass123!",
-            "name": "테스트유저"
+            "name": "테스트유저",
         }
         self.account_data = {
             "account_number": "1234567890",
             "bank_code": "090",
             "account_type": "CHECKING",
-            "balance": 100000
+            "balance": 100000,
         }
         self.analysis_data = {
             "about": "TOTAL_SPENDING",
             "type": "MONTHLY",
             "period_start": "2025-06-01",
-            "period_end": "2025-06-30"
+            "period_end": "2025-06-30",
         }
 
     def generate_random_transaction(self, account_id):
@@ -42,7 +44,7 @@ class AccountingFlowTest(APITestCase):
             "description": desc,
             "transaction_type": tx_type,
             "method": method,
-            "transaction_at": tx_date.isoformat()
+            "transaction_at": tx_date.isoformat(),
         }
 
     def test_full_accounting_flow(self):
@@ -54,10 +56,10 @@ class AccountingFlowTest(APITestCase):
         print("중복 회원가입 차단:", res.status_code)
         self.assertEqual(res.status_code, 400)
 
-        res = self.client.post("/api/user/login/", {
-            "email": self.user_data["email"],
-            "password": self.user_data["password"]
-        })
+        res = self.client.post(
+            "/api/user/login/",
+            {"email": self.user_data["email"], "password": self.user_data["password"]},
+        )
         print("로그인:", res.status_code)
         self.assertEqual(res.status_code, 200)
         access = res.data["access"]
@@ -68,10 +70,10 @@ class AccountingFlowTest(APITestCase):
         print("로그아웃:", res.status_code)
         self.assertEqual(res.status_code, 205)
 
-        res = self.client.post("/api/user/login/", {
-            "email": self.user_data["email"],
-            "password": self.user_data["password"]
-        })
+        res = self.client.post(
+            "/api/user/login/",
+            {"email": self.user_data["email"], "password": self.user_data["password"]},
+        )
         print("재로그인:", res.status_code)
         self.assertEqual(res.status_code, 200)
         access = res.data["access"]
@@ -104,7 +106,9 @@ class AccountingFlowTest(APITestCase):
 
         res = self.client.get(f"/api/transaction/?account={account_id}")
         tx_id = res.data[0]["id"]
-        res = self.client.patch(f"/api/transaction/{tx_id}/update/", {"description": "수정된 거래"})
+        res = self.client.patch(
+            f"/api/transaction/{tx_id}/update/", {"description": "수정된 거래"}
+        )
         print("거래 수정:", res.status_code)
         self.assertIn(res.status_code, [200, 202])
 
