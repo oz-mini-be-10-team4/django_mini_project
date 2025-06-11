@@ -8,7 +8,7 @@ class TransactionSerializer(serializers.ModelSerializer):
         model = Transaction
         fields = (
             "id",
-            "account_id",
+            "account",
             "amount",
             "balance_after",
             "description",

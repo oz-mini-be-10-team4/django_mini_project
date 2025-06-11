@@ -6,18 +6,19 @@ from utils.models import TimestampModel
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, password):
+    def create_user(self, email, password, name=None):
         if not email:
             raise ValueError("올바른 이메일을 입력하세요.")
 
-        user = self.model(email=self.normalize_email(email))
+        email = self.normalize_email(email)
+        user = self.model(email=email, name=name)
         user.set_password(password)
         user.is_active = True
         user.save()
         return user
 
-    def create_superuser(self, email, password):
-        user = self.create_user(email, password)
+    def create_superuser(self, email, password, name=None):
+        user = self.create_user(email=email, password=password, name=name)
         user.is_admin = True
         user.is_active = True
         user.is_staff = True
