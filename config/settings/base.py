@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     "transaction",
     "user",
     "analysis",
+    "notification",
     # 3rd party
     "django_extensions",
     "rest_framework",
