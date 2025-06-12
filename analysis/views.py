@@ -28,7 +28,20 @@ class RunAnalysisView(APIView):
     def post(self, request):
         analysis_type = request.data.get("type", "WEEKLY").upper()
         end_date = timezone.now().date()
-        start_date = end_date - timedelta(days=7 if analysis_type == "WEEKLY" else 30)
+
+        if analysis_type == "DAILY":
+            start_date = end_date - timedelta(days=1)
+        elif analysis_type == "WEEKLY":
+            start_date = end_date - timedelta(days=7)
+        elif analysis_type == "MONTHLY":
+            start_date = end_date - timedelta(days=30)
+        elif analysis_type == "YEARLY":
+            start_date = end_date - timedelta(days=365)
+        else:
+            return Response(
+                {"detail": f"지원하지 않는 분석 타입입니다: {analysis_type}"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
         analyzer = Analyzer(
             user=request.user,
