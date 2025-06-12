@@ -32,6 +32,7 @@ urlpatterns = [
     ),
     path("redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
     path("api/analysis/", include("analysis.urls", namespace="analysis")),
+    path("api/notifications/", include("notification.urls")),
 ]
 
 if settings.DEBUG:
