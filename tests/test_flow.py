@@ -153,7 +153,7 @@ class AccountingFlowTest(APITestCase):
         self.assertEqual(res.status_code, 201)
 
         # 10단계: 알림 확인
-        res = self.client.get("/notifications/unread/")
+        res = self.client.get("/api/notifications/unread/")
         print("[10단계] 미확인 알림 조회 → 상태 코드:", res.status_code)
         print(f"[10단계] 확인된 미확인 알림 수: {len(res.data)}개")
         print()
@@ -168,7 +168,7 @@ class AccountingFlowTest(APITestCase):
 
         # 12단계: 알림 읽음 처리
         notif_id = notification["id"]
-        res = self.client.post(f"/notifications/{notif_id}/read/")
+        res = self.client.post(f"/api/notifications/{notif_id}/read/")
         print("[12단계] 알림 읽음 처리 요청 → 상태 코드:", res.status_code)
         print(
             "[12단계] 알림 읽음 처리 결과:",
@@ -178,7 +178,7 @@ class AccountingFlowTest(APITestCase):
         self.assertEqual(res.status_code, 200)
 
         # 13단계: 읽은 알림 재확인
-        res = self.client.get("/notifications/unread/")
+        res = self.client.get("/api/notifications/unread/")
         print("[13단계] 읽음 처리된 알림 재조회 확인")
         print(
             "[13단계] 읽은 알림이 목록에 남아 있는가?:",
